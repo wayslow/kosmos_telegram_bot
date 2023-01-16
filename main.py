@@ -3,10 +3,11 @@ from dotenv import load_dotenv
 
 import requests
 import pathlib
+import urllib
 
 from pprint import pprint
 import datetime
-import urllib
+
 
 
 def fetch_spacex_last_launch(url, path):
