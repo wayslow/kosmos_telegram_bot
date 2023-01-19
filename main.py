@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 
 import requests
 import pathlib
-import urllib
+
+from urllib.parse import urlparse
+import argparse
 
 from pprint import pprint
 import datetime
@@ -51,21 +53,21 @@ def nasa_epik_fotos(url, path , api_token):
     response = requests.get(url, params=params)
     response.raise_for_status()
     for index, data in enumerate(response.json()):
-        nameimage = data["image"]
+
         date_time_obj = datetime.datetime.fromisoformat(data["date"])
         date=datetime.date(date_time_obj.year, date_time_obj.month, date_time_obj.day)
         formatted_date = date.strftime("%Y/%m/%d")
-        print(formatted_date)
+
+        nameimage = data["image"]
         type_file ="png"
         foto_url = f"https://epic.gsfc.nasa.gov/archive/natural/{formatted_date}/{type_file}/{nameimage}.{type_file}"
+
         response = requests.get(foto_url)
         response.raise_for_status()
         filename = os.path.join(path, f"nasa_epik{index}.{type_file}")
-        print(filename)
+
         with open(filename, 'wb') as file:
             file.write(response.content)
-        if index == 5:
-            exit()
 
 
 def main():
