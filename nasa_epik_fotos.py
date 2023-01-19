@@ -1,5 +1,5 @@
 import requests
-from get_info import get_api_key ,get_path
+from get_info import get_nasa_api_key ,get_path
 
 def nasa_epik_fotos(url, path , api_token):
 
@@ -28,7 +28,7 @@ def nasa_epik_fotos(url, path , api_token):
 
 
 def main():
-    api_token = get_api_key()
+    api_token = get_nasa_api_key()
     path = get_path()
     url_nasa_epik_fotos = '  https://api.nasa.gov/EPIC/api/natural/images'
 
