@@ -20,11 +20,11 @@ def fetch_spacex_last_launch(path,id):
     response = requests.get(url, params=params)
     response.raise_for_status()
     pprint(response.json())
-    for dick_foto_url in response.json()['links']['flickr']['original']:
-        for index,foto_url in enumerate(dick_foto_url):
-            response = requests.get(foto_url)
+    for dick_photo_url in response.json()['links']['flickr']['original']:
+        for index,photo_url in enumerate(dick_photo_url):
+            response = requests.get(photo_url)
             response.raise_for_status()
-            filename = os.path.join(path, f"spaseX{index}")
+            filename = os.path.join(path, f"spaseX{index}.")
             with open(filename, 'wb') as file:
                 file.write(response.content)
 

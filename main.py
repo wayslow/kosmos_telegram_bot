@@ -7,24 +7,21 @@ import pathlib
 from urllib.parse import urlparse
 import argparse
 
-from pprint import pprint
-import datetime
-
 
 
 def fetch_spacex_last_launch(url, path):
     response = requests.get(url)
     response.raise_for_status()
-    for dick_foto_url in response.json()['links']['flickr']['original']:
-        for index,foto_url in enumerate(dick_foto_url):
-            response = requests.get(foto_url)
+    for dick_photo_url in response.json()['links']['flickr']['original']:
+        for index,photo_url in enumerate(dick_photo_url):
+            response = requests.get(photo_url)
             response.raise_for_status()
-            filename = os.path.join(path, f"spaseX{index}")
+            filename = os.path.join(path, f"spaseX{index}.jpg")
             with open(filename, 'wb') as file:
                 file.write(response.content)
 
 
-def nasa_apod_fotos(url, path, api_token):
+def nasa_apod_photo(url, path, api_token):
     params= {
         "api_key": api_token,
         "count":20
@@ -33,10 +30,10 @@ def nasa_apod_fotos(url, path, api_token):
     response = requests.get(url, params=params)
     response.raise_for_status()
     for index,  data in enumerate(response.json()):
-        foto_url = data['url']
-        response = requests.get(foto_url)
+        photo_url = data['url']
+        response = requests.get(photo_url)
         response.raise_for_status()
-        parse = urllib.parse.urlsplit(foto_url)
+        parse = urllib.parse.urlsplit(photo_url)
         extension = os.path.splitext(parse.path)[1]
 
         filename = os.path.join(path, f"nasa_apod{index}{extension}")
@@ -45,7 +42,7 @@ def nasa_apod_fotos(url, path, api_token):
             file.write(response.content)
 
 
-def nasa_epik_fotos(url, path , api_token):
+def nasa_epik_photo(url, path , api_token):
     params = {
         "api_key": api_token,
     }
@@ -60,9 +57,9 @@ def nasa_epik_fotos(url, path , api_token):
 
         nameimage = data["image"]
         type_file ="png"
-        foto_url = f"https://epic.gsfc.nasa.gov/archive/natural/{formatted_date}/{type_file}/{nameimage}.{type_file}"
+        photo_url = f"https://epic.gsfc.nasa.gov/archive/natural/{formatted_date}/{type_file}/{nameimage}.{type_file}"
 
-        response = requests.get(foto_url)
+        response = requests.get(photo_url)
         response.raise_for_status()
         filename = os.path.join(path, f"nasa_epik{index}.{type_file}")
 
@@ -79,12 +76,12 @@ def main():
     pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
     spacex_url = 'https://api.spacexdata.com/v5/launches/latest'
-    url_nasa_apod_fotos = "https://api.nasa.gov/planetary/apod"
-    url_nasa_epik_fotos = '  https://api.nasa.gov/EPIC/api/natural/images'
+    url_nasa_apod_photos = "https://api.nasa.gov/planetary/apod"
+    url_nasa_epik_photos = '  https://api.nasa.gov/EPIC/api/natural/images'
 
     #fetch_spacex_last_launch(spacex_url, path)
-    #nasa_apod_fotos(url_nasa_apod_fotos, path, api_token)
-    nasa_epik_fotos(url_nasa_epik_fotos, path, api_token)
+    #nasa_apod_photos(url_nasa_apod_photos, path, api_token)
+    nasa_epik_photos(url_nasa_epik_photos, path, api_token)
 
 
 

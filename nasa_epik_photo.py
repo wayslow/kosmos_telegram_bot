@@ -1,7 +1,7 @@
 import requests
 from get_info import get_nasa_api_key ,get_path
 
-def nasa_epik_fotos(url, path , api_token):
+def nasa_epik_photos(url, path , api_token):
 
     params = {
         "api_key": api_token,
@@ -17,9 +17,9 @@ def nasa_epik_fotos(url, path , api_token):
 
         nameimage = data["image"]
         type_file ="png"
-        foto_url = f"https://epic.gsfc.nasa.gov/archive/natural/{formatted_date}/{type_file}/{nameimage}.{type_file}"
+        photo_url = f"https://epic.gsfc.nasa.gov/archive/natural/{formatted_date}/{type_file}/{nameimage}.{type_file}"
 
-        response = requests.get(foto_url)
+        response = requests.get(photo_url)
         response.raise_for_status()
         filename = os.path.join(path, f"nasa_epik{index}.{type_file}")
 
@@ -30,9 +30,9 @@ def nasa_epik_fotos(url, path , api_token):
 def main():
     api_token = get_nasa_api_key()
     path = get_path()
-    url_nasa_epik_fotos = '  https://api.nasa.gov/EPIC/api/natural/images'
+    url_nasa_epik_photos = '  https://api.nasa.gov/EPIC/api/natural/images'
 
-    nasa_epik_fotos(url_nasa_epik_fotos, path, api_token)
+    nasa_epik_photos(url_nasa_epik_photos, path, api_token)
 
 if __name__ == '__main__':
     main()
