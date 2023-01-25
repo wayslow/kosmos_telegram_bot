@@ -1,7 +1,3 @@
-import pathlib
-import os
-
-from dotenv import load_dotenv
 import requests
 
 def download(photo_url, filename):

@@ -1,5 +1,8 @@
+import pathlib
+
 import requests
-from get_info import get_nasa_api_key ,get_path
+
+from download import download
 
 def nasa_epik_photos(url, path , api_token):
 
