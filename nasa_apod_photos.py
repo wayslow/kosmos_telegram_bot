@@ -1,5 +1,5 @@
 import requests
-from get_info import get_nasa_api_key , get_path
+from download import download
 
 
 def nasa_apod_photos(url, path, api_token):
@@ -12,19 +12,20 @@ def nasa_apod_photos(url, path, api_token):
     response.raise_for_status()
     for index,  data in enumerate(response.json()):
         photo_url = data['url']
-        response = requests.get(photo_url)
-        response.raise_for_status()
         parse = urllib.parse.urlsplit(photo_url)
         extension = os.path.splitext(parse.path)[1]
 
         filename = os.path.join(path, f"nasa_apod{index}{extension}")
-        with open(filename, 'wb') as file:
-            file.write(response.content)
+        download(photo_url,filename)
 
 
 def main():
-    api_token = get_nasa_api_key()
-    path = get_path()
+    path = "image"
+    pathlib.Path(path).mkdir(parents=True, exist_ok=True)
+
+    load_dotenv()
+    api_token = os.getenv('API_TOKEN_NASA')
+
     url_nasa_apod_photos = "https://api.nasa.gov/planetary/apod"
 
     nasa_apod_photos(url_nasa_apod_photos, path, api_token)
