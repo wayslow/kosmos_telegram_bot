@@ -1,25 +1,32 @@
 import pathlib
+import os
 
+from dotenv import load_dotenv
 import requests
 
-from download import download
-
+from download import download_photo
 
 def nasa_apod_photos(url, path, api_token):
     params= {
         "api_key": api_token,
-        "count":20
+        "count": 20
     }
 
     response = requests.get(url, params=params)
     response.raise_for_status()
-    for index,  data in enumerate(response.json()):
+
+    photo_info=response.json()
+    formatting_download_url(photo_info, folder_name)
+
+def formatting_download_url(photo_info):
+
+    for index,  data in enumerate(photo_info):
         photo_url = data['url']
         parse = urllib.parse.urlsplit(photo_url)
         extension = os.path.splitext(parse.path)[1]
-
         filename = os.path.join(path, f"nasa_apod{index}{extension}")
-        download(photo_url,filename)
+
+        download_photo(photo_url,filename,params)
 
 
 def main():
