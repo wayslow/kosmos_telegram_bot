@@ -129,7 +129,7 @@ myvenv/
 ENV/
 env.bak/
 venv.bak/
-
+image
 # Spyder project settings
 .spyderproject
 .spyproject
