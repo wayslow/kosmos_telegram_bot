@@ -1,13 +1,12 @@
 import os
 from dotenv import load_dotenv
+import datetime
 
 import requests
 import pathlib
 
 from urllib.parse import urlparse
 import argparse
-
-
 
 def fetch_spacex_last_launch(url, path):
     response = requests.get(url)
