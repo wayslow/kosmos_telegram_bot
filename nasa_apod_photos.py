@@ -1,12 +1,14 @@
 import pathlib
 import os
 
-from dotenv import load_dotenv
 import requests
+import urllib
+from dotenv import load_dotenv
+
 
 from download import download_photo
 
-def nasa_apod_photos(url, path, api_token):
+def nasa_apod_photos(url, folder_name, api_token):
     params= {
         "api_key": api_token,
         "count": 20
@@ -16,17 +18,19 @@ def nasa_apod_photos(url, path, api_token):
     response.raise_for_status()
 
     photo_info=response.json()
-    formatting_download_url(photo_info, folder_name)
+    formatting_download_url(photo_info, folder_name,params)
 
-def formatting_download_url(photo_info):
+
+def formatting_download_url(photo_info, folder_name,params ):
 
     for index,  data in enumerate(photo_info):
         photo_url = data['url']
         parse = urllib.parse.urlsplit(photo_url)
         extension = os.path.splitext(parse.path)[1]
-        filename = os.path.join(path, f"nasa_apod{index}{extension}")
+        filename = os.path.join(folder_name, f"nasa_apod{index}{extension}")
 
         download_photo(photo_url,filename,params)
+    print("скачка завершенена")
 
 
 def main():

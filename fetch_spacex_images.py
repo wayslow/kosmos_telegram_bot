@@ -41,6 +41,7 @@ def fetch_spacex_launch(folder_name,id_fetch_spacex):
         for index,photo_url in enumerate(dick_photo_url):
             path = os.path.join(folder_name, f"spaseX_{index}.jpg")
             download_photo(photo_url, path)
+    print("скачка завершенена")
 
 
 if __name__ == '__main__':
