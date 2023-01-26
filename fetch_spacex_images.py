@@ -34,9 +34,6 @@ def fetch_spacex_launch(folder_name,id_fetch_spacex):
     response = requests.get(url, params=params)
     response.raise_for_status()
 
-    if print(response.json()['links']['flickr']['original']) == []:
-        print('фотографий нет ')
-
     for dick_photo_url in response.json()['links']['flickr']['original']:
         for index,photo_url in enumerate(dick_photo_url):
             path = os.path.join(folder_name, f"spaseX_{index}.jpg")
