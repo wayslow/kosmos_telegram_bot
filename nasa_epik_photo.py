@@ -7,7 +7,7 @@ import requests
 
 from download import download_photo
 
-def nasa_epik_photos_response(url, folder_name , api_token):
+def get_nasa_epik(url, api_token):
 
     params = {
         "api_key": api_token,
@@ -16,11 +16,12 @@ def nasa_epik_photos_response(url, folder_name , api_token):
     response = requests.get(url, params=params)
     response.raise_for_status()
 
-    photo_info=response.json()
-    formatting_download_url(photo_info, folder_name,params)
+    return response.json(), params
 
 
-def formatting_download_url(photo_info,folder_name,params):
+def formatting_download_url(url_nasa_epik_photos, folder_name, api_token):
+    photo_info, params=get_nasa_epik(url_nasa_epik_photos, api_token)
+
     for index, images in enumerate(photo_info):
         date_time_obj = datetime.datetime.fromisoformat(images["date"])
         date =datetime.date(date_time_obj.year, date_time_obj.month, date_time_obj.day)
@@ -42,7 +43,7 @@ def main():
 
     url_nasa_epik_photos = '  https://api.nasa.gov/EPIC/api/natural/images'
 
-    nasa_epik_photos_response(url_nasa_epik_photos, folder_name, api_token)
+    formatting_download_url(url_nasa_epik_photos, folder_name, api_token)
 
 
 if __name__ == '__main__':

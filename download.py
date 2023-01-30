@@ -1,11 +1,11 @@
 import requests
 
-def download_photo(photo_url, filename, params=None):
+def download_photo(photo_url, path, params=None):
     response = requests.get(photo_url,params=params)
     response.raise_for_status()
-    with open(filename, 'wb') as file:
+    with open(path, 'wb') as file:
         file.write(response.content)
-    print(f"{filename}")
+    print(f"{path} сачен")
 
 
 
