@@ -31,7 +31,7 @@ def formatting_download_url(url_nasa_epik_photos, folder_name, api_token):
         photo_url = f"https://epic.gsfc.nasa.gov/archive/natural/{formatted_date}/{type_file}/{name_image}.{type_file}"
         path = os.path.join(folder_name, f"nasa_epik{index}.{type_file}")
         download_photo(photo_url, path, params)
-    print("скачка завершенена")
+
 
 
 def main():

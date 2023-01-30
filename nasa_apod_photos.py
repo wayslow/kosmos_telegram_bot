@@ -23,7 +23,7 @@ def get_nasa_apod_photos(url, folder_name, api_token):
         path = os.path.join(folder_name, f"nasa_apod{index}{extension}")
 
         download_photo(photo_url,path,params)
-    print("скачка завершенена")
+
 
 
 def main():
