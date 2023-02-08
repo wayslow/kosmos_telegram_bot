@@ -7,10 +7,10 @@ from dotenv import load_dotenv
 
 from download import download_photo
 
-def get_nasa_apod_photos(nasa_apod_url, folder_name, api_token):
+def get_nasa_apod_photos(nasa_apod_url, folder_name, nasa_api_token):
     params= {
-        "api_key": api_token,
-        "count": 40
+        "api_key": nasa_api_token,
+        "count": 30
     }
 
     response = requests.get(nasa_apod_url, params=params)
@@ -22,7 +22,7 @@ def get_nasa_apod_photos(nasa_apod_url, folder_name, api_token):
         extension = os.path.splitext(parse.path)[-1]
         path = os.path.join(folder_name, f"nasa_apod{index}{extension}")
 
-        download_photo(photo_url, path, params)
+        download_photo(photo_apod_url, path, params)
 
 
 def main():
@@ -30,11 +30,11 @@ def main():
     pathlib.Path(folder_name).mkdir(parents=True, exist_ok=True)
 
     load_dotenv()
-    api_token = os.getenv('API_TOKEN_NASA')
+    nasa_api_token = os.getenv("NASA_API_TOKEN")
 
     nasa_apod_url = "https://api.nasa.gov/planetary/apod"
 
-    get_nasa_apod_photos(nasa_apod_url, folder_name, api_token)
+    get_nasa_apod_photos(nasa_apod_url, folder_name, nasa_api_token)
 
 
 if __name__ == '__main__':
