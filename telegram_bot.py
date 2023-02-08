@@ -23,8 +23,9 @@ def pfoto_uplod(folder_name, chat_id, files, time_sleep):
 
 
 def main():
-    folder_name = "image/"
+    folder_name = "image"
     chat_id = "@photo_kosmos"
+    pathlib.Path(folder_name).mkdir(parents=True, exist_ok=True)
     parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--time", type=int, default=1440, help="время между отправками сообщение в минутах")
     parser.add_argument("-p", "--photo", type=str, help="путь/и (через пробел) до фото которе хотите вывести ")
