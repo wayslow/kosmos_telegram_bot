@@ -7,21 +7,17 @@ import requests
 
 from download import download_photo
 
-def get_nasa_epic(url, api_token):
+
+def get_nasa_epic_photos(url_nasa_epic_photos, folder_name, api_token, type_file="png"):
+
 
     params = {
         "api_key": api_token,
     }
 
-    response = requests.get(url, params=params)
+    response = requests.get(url_nasa_epic_photos, params=params)
     response.raise_for_status()
-
-    return response.json(), params
-
-
-def get_nasa_epic_photos(url_nasa_epic_photos, folder_name, api_token, type_file="png"):
-
-    image_epic, params=get_nasa_epic(url_nasa_epic_photos, api_token)
+    image_epic = response.json()
 
     for index, images in enumerate(image_epic):
         date_time_obj = datetime.datetime.fromisoformat(images["date"])
