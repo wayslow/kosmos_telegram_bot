@@ -7,24 +7,24 @@ from dotenv import load_dotenv
 
 import telegram
 
-load_dotenv()
-api_token = os.getenv('TELEGRAM_API_TOKEN')
-BOT = telegram.Bot(token=api_token)
 
-
-def pfoto_uplod(folder_name, chat_id, files, time_sleep):
+def photo_uplod(folder_name, chat_id, files, time_sleep,bot):
     while True:
         random.shuffle(files)
         for file in files:
             path = os.path.join(folder_name, file)
-            BOT.send_photo(chat_id=chat_id, photo=open(path, 'rb'))
+            with open(path, 'rb') as photo
+                bot.send_photo(chat_id=chat_id, photo=photo)
             time.sleep(time_sleep)
         files = os.listdir(folder_name)
 
 
 def main():
+    load_dotenv()
+    api_token = os.getenv('TELEGRAM_API_TOKEN')
+    chat_id = os.getenv('CHAT_ID')
+    bot = telegram.Bot(token=api_token)
     folder_name = "image"
-    chat_id = "@photo_kosmos"
     pathlib.Path(folder_name).mkdir(parents=True, exist_ok=True)
     parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--time", type=int, default=1440, help="время между отправками сообщение в минутах")
@@ -38,7 +38,7 @@ def main():
 
     time_sleep = args.time * 60
 
-    pfoto_uplod(folder_name, chat_id, files, time_sleep)
+    pfoto_uplod(folder_name, chat_id, files, time_sleep, bot)
 
 
 if __name__ == '__main__':
