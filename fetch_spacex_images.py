@@ -7,16 +7,16 @@ from urllib.parse import urlparse
 
 from download import download_photo
 
-def fetch_spacex_launch(folder_name , id_fetch_spacex):
+def fetch_spacex_launch(folder_name , spacex_id):
 
     spacex_url = 'https://api.spacexdata.com/v5/launches/'
 
     params={
-        "id":id_fetch_spacex
+        "id":id_spacex
     }
 
-    if id_fetch_spacex == 'latest':
-        spacex_url= f'https://api.spacexdata.com/v5/launches/{id_fetch_spacex}'
+    if id_spacex == 'latest':
+        spacex_url= f'https://api.spacexdata.com/v5/launches/{spacex_id}'
 
     response = requests.get(spacex_url, params=params)
     response.raise_for_status()
@@ -32,12 +32,12 @@ def main():
 
     parser.add_argument('-id', help='Ваша ссылка', default='latest')
     args = parser.parse_args()
-    id_fetch_spacex = args.id
+    spacex_id = args.id
 
     folder_name = "image"
     pathlib.Path(folder_name).mkdir(parents=True, exist_ok=True)
 
-    fetch_spacex_launch(folder_name, id_fetch_spacex)
+    fetch_spacex_launch(folder_name, spacex_id)
 
 
 if __name__ == '__main__':

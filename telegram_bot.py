@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import telegram
 
 
-def photo_uplod(folder_name, chat_id, files, time_sleep,bot):
+def photo_upload(folder_name, chat_id, files, time_sleep,bot):
     while True:
         random.shuffle(files)
         for file in files:

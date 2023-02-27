@@ -17,9 +17,9 @@ def get_nasa_epic_photos(url_nasa_epic_photos, folder_name, api_token, type_file
 
     response = requests.get(url_nasa_epic_photos, params=params)
     response.raise_for_status()
-    image_epic = response.json()
+    images_epic = response.json()
 
-    for index, images in enumerate(image_epic):
+    for index, images in enumerate(images_epic):
         date_time_obj = datetime.datetime.fromisoformat(images["date"])
         date =datetime.date(date_time_obj.year, date_time_obj.month, date_time_obj.day)
         formatted_date = date.strftime("%Y/%m/%d")
