@@ -12,10 +12,10 @@ def fetch_spacex_launch(folder_name , spacex_id):
     spacex_url = 'https://api.spacexdata.com/v5/launches/'
 
     params={
-        "id":id_spacex
+        "id":spacex_id
     }
 
-    if id_spacex == 'latest':
+    if spacex_id == 'latest':
         spacex_url= f'https://api.spacexdata.com/v5/launches/{spacex_id}'
 
     response = requests.get(spacex_url, params=params)

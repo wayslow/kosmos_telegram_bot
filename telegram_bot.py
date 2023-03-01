@@ -38,7 +38,7 @@ def main():
 
     time_sleep = args.time * 60
 
-    pfoto_uplod(folder_name, chat_id, files, time_sleep, bot)
+    photo_upload(folder_name, chat_id, files, time_sleep, bot)
 
 
 if __name__ == '__main__':
